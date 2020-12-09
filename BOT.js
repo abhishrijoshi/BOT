@@ -1,6 +1,4 @@
 const qrcode = require('qrcode-terminal');
-
-
 const { http, https } = require('follow-redirects');
 const { Client } = require('whatsapp-web.js');
 const client = new Client();
@@ -12,160 +10,47 @@ client.on('qr', qr => {
 client.on('ready', () => {
     console.log('READY TO GET BANNED ?!');
 });
-
-
-
 client.on('message', message => {
 	if(message.body === 'Hi') {
 		message.reply('Hello i am a user  bot ');
-	}
-});
-
-
-
-client.on('message', message => {
-	if(message.body === 'hi') {
+    }
+    else if(message.body === 'hi') {
 		message.reply('Hello i am a user bot ');
-	}
-});
-
-
-client.on('message', message => {
-	if(message.body === 'noob') {
-		message.reply('Dont call him ');
-	}
-});
-
-
-client.on('message', message => {
-	if(message.body === 'Noob') {
-		message.reply('Dont call him ');
-	}
-});
-
-
-
-
-
-
-client.on('message', async (msg) => {
-    const mentions = await msg.getMentions();
-    
-    for(let contact of mentions) {
-        console.log(`${contact.pushname} was mentioned`);
- 
-        
- 
     }
-})
-
-
-
-client.on('message', message => {
-	if(message.body === 'soja') {
+    else if(message.body === 'noob') {
+		message.reply('Dont call him ');
+	}
+    else if(message.body === 'Noob') {
+		message.reply('Dont call him ');
+	}
+    else if(message.body === 'soja') {
 		message.reply('Hmm ,yeah Good night ');
-	
-        
-        
-    }
-});
+	}
 
-
-client.on('message', message => {
-	if(message.body === 'Soja') {
+    else if(message.body === 'Soja') {
 		message.reply('Hmmm , yeah Good night');
-	
-        
-        
-    }
-});
-
-
-client.on('message', message => {
-	if(message.body === 'gn') {
+	}
+    else if(message.body === 'gn') {
 		message.reply(' Good night');
-	
-        
-        
-    }
-});
-
-client.on('message', message => {
-	if(message.body === 'Gn') {
+	}
+    else if(message.body === 'Gn') {
 		message.reply(' Good night');
-	
-        
-        
-    }
-});
-
-
-
-
-client.on('message', message => {
-	if(message.body === 'good morning') {
+	}
+    else if(message.body === 'good morning') {
 		message.reply(' Good morning');
-	
-        
-        
-    }
-});
-
-
-
-
-client.on('message', message => {
-	if(message.body === 'Good morning') {
+	}
+	else if(message.body === 'Good morning') {
 		message.reply(' Good morning');
-	
-        
-        
-    }
+	}
 });
 
 
 
 
-
-
-
-
-
-
-client.on('message', async (msg) => {
-  
-    
-  // for api 
-    if (msg.body == ' your command ') {
-        https.get(`  api url  `, function(response) {
-        var buffer = '';
-        response.on('data', function(d) {
-        buffer += d;
-        }).on('end', function() {
-        var body;
-        try {
-        obj = JSON.parse(buffer);
-        msg.reply(`${obj.setup} \n${obj."change object here exclude the quotes after "}`);
-      } catch (err) {
-        return msg.reply(err);
-      }
-    }).setEncoding('utf8');
-    });
-     
-    
-    
-    
-    
  
-    }
-})
-
-
-
-
-
 client.on('message', async (msg) => {
-    if(msg.body === '!everyone') {
+   
+   if(msg.body === '!everyone') {
         const chat = await msg.getChat();
         
         let text = "";
@@ -180,7 +65,7 @@ client.on('message', async (msg) => {
 
         chat.sendMessage(text, { mentions });
     }
-});
+    });
 
 
 
