@@ -41,7 +41,8 @@ client.on('message', message => {
 	}
 	else if(message.body === 'Good morning') {
 		message.reply(' Good morning');
-	}
+        }
+}
 });
 
 
@@ -65,6 +66,40 @@ client.on('message', async (msg) => {
 
         chat.sendMessage(text, { mentions });
     }
+    else if (msg.body.startsWith('!covid')) {
+        https.get(`https://api.covid19india.org/v4/data.json `, function(response) {
+        var buffer = '';
+        response.on('data', function(d) {
+        buffer += d;
+        }).on('end', function() {
+        var body;
+        try {
+        body = JSON.parse(buffer);
+        msg.reply(`${body.TT.total.confirmed} confirmed cases \n${body.TT.total.tested } people are tested`);
+        }
+        catch (err) {
+        return msg.reply(err);
+      }
+    }).setEncoding('utf8');
+    });
+        }
+    else if (msg.body.startsWith('!iss')) {
+        http.get(`  http://api.open-notify.org/iss-now.json`, function(response) {
+        var buffer = '';
+        response.on('data', function(d) {
+        buffer += d;
+        }).on('end', function() {
+        var body;
+        try {
+        body = JSON.parse(buffer);
+        
+        msg.reply(`${body.timestamp}  TIME \n${body.iss_position.latitude} LATITUDE   \n${body.iss_position.longitude} LONGITUDE `);
+      } catch (err) {
+        return msg.reply(err);
+      }
+    }).setEncoding('utf8');
+    });
+         }
     });
 
 
@@ -72,86 +107,67 @@ client.on('message', async (msg) => {
 
 
 //Google Meet links 
-var date = new Date(); 
-const link = new Date(date);
-const day = link.getDay();
-console.log(day);
+
+
+
+client.on('message', message => {
+
+ 
+    if(message.body === '!link') {
+        
+    var date = new Date(); 
+    const link = new Date(date);
+    const day = link.getDay();
+    console.log(day);
     
-if(day =='1') {
-client.on('message', message => {
-	if(message.body === '!link') {
-	
-	message.reply(' "Yor link here of day order 1      ' );
+    if(day =='1') {
+      
+		message.reply(" TEST 1 ");
+	}
+	else if (day == '2') { 
         
+        	message.reply(" TEST 2 ");
+	}
+	else if (day == '3') { 
         
-    }
-});
-
-}
-
-
-if(day =='2') {
-client.on('message', message => {
-	if(message.body === '!link') {
-
-        message.reply(' "Yor link here of day order 2      ' );
+        	message.reply(" TEST 3");
+	}
+    else if (day == '4') { 
         
-    }
-});
-
-}
-
-
-if(day =='3') {
-client.on('message', message => {
-	if(message.body === '!link') {
-	message.reply(' "Yor link here of day order 3      ' );
-        	
+        	message.reply(" TEST 4 ");
+	}
+        else if (day == '5') { 
+        
+        	message.reply(" TEST 5 ");
 	}
         
-    
-});
-
-}
-
-    
-if(day =='4') {
-client.on('message', message => {
-	if(message.body === '!link') {
+    }
 	
-		message.reply(' "Yor link here of day order 4     ' );
-        
-        
-    }
-});
-
-}
+	});
 
 
-if(day =='5') {
-client.on('message', message => {
-	if(message.body === '!link') {
-	message.reply(' "Yor link here of day order 5      ' );
-	
-        
-        
-    }
-});
+   client.on('message', async (msg) => {
 
-}
+        const fs = require('fs');
+        const attachmentData = await msg.downloadMedia();
+        var extension = "";
+        if (attachmentData.mimetype == "application/pdf") 
+        extension = "pdf";
+        if (extension == "")
+        return;
+    var base64Data = attachmentData.data.replace(/^data:image\/png;base64,/, "");
+    const new_filename = "./" + msg.id.id + "." + extension;
+    fs.writeFile( new_filename, base64Data, 'base64', function(err) {
+      console.log("saved");
+        if (err != null) {
+      
+            return;
+        }
+    });
+})
 
 
-if(day =='6') {
-client.on('message', message => {
-	if(message.body === '!link') {
-		
-		message.reply(' "Yor link here of day order 6      ' );
-                                                                                                                     
-        
-    }
-});
 
-}
 
 
 client.initialize();
