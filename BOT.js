@@ -42,7 +42,7 @@ client.on('message', message => {
 	else if(message.body === 'Good morning') {
 		message.reply(' Good morning');
         }
-}
+
 });
 
 
